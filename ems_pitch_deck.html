@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Energy Monitoring System | Investor Deck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00E5FF;
+            --primary-dark: #00B8D4;
+            --secondary: #FF9E1B;
+            --dark: #121212;
+            --darker: #0A0A0A;
+            --light: #E0E0E0;
+            --gray: #757575;
+            --success: #00E676;
+            --danger: #FF5252;
+            --warning: #FFD740;
+            --info: #40C4FF;
+            --card-bg: #1E1E1E;
+            --section-bg: #181818;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--light);
+            background-color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 229, 255, 0.15) 0%, rgba(0, 229, 255, 0) 70%);
+            z-index: 1;
+        }
+        
+        header .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .section {
+            padding: 3rem 0;
+            background-color: var(--section-bg);
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 229, 255, 0.2);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--dark);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+        
+        .highlight {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--success);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            color: var(--light);
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .comparison-table th {
+            background-color: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table .highlight-row {
+            background-color: rgba(0, 229, 255, 0.05);
+        }
+        
+        .comparison-table .check {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .comparison-table .x {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .progress-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            height: 10px;
+            width: 100%;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        .tab-container {
+            margin-bottom: 2rem;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            color: var(--gray);
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--light);
+        }
+        
+        .footer {
+            background-color: var(--darker);
+            color: var(--light);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .glow {
+            position: relative;
+        }
+        
+        .glow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .glow:hover::after {
+            opacity: 1;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .divider {
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 2rem auto;
+            width: 50%;
+            border-radius: 3px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(0, 229, 255, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animated background */
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.05;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 4s infinite;
+        }
+        
+        .circle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .circle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 40%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+        
+        .circle:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-dark);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="animated-bg">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="container">
+            <h1>Smart Home Energy Monitoring System</h1>
+            <p>Revolutionizing Home Energy Management with AI-Powered Insights</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Executive Summary Section -->
+        <section class="section glow" id="executive-summary">
+            <div class="section-header">
+                <h2>Executive Summary</h2>
+            </div>
+            <div class="container">
+                <p>Our Smart Home Energy Monitoring System is revolutionizing how homeowners understand and manage their energy consumption. Using advanced AI algorithms and non-invasive hardware, we provide appliance-level insights without requiring complex installation, helping users reduce energy consumption by up to 23% and significantly lower their electricity bills.</p>
+                
+                <div class="grid mb-2">
+                    <div class="stat-card">
+                        <div class="stat-number">23%</div>
+                        <div class="stat-label">Average Energy Savings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">₹4,500</div>
+                        <div class="stat-label">Target Price Point</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5x</div>
+                        <div class="stat-label">Price Advantage vs Competitors</div>
+                    </div>
+                </div>
+                
+                <p>With a serviceable market of 75 million middle-class households in India and a target penetration of 1%, our solution is positioned to capture a ₹1,200+ Cr market opportunity while delivering meaningful environmental impact through reduced energy consumption.</p>
+            </div>
+        </section>
+
+        <!-- Problem & Solution Section -->
+        <section class="section glow" id="problem-solution">
+            <div class="section-header">
+                <h2>Problem & Solution</h2>
+            </div>
+            <div class="container">
+                <div class="grid">
+                    <div class="card">
+                        <h3>The Problem</h3>
+                        <ul class="feature-list">
+                            <li>Rising electricity costs are burdening Indian households</li>
+                            <li>Consumers lack visibility into which appliances consume the most energy</li>
+                            <li>Existing solutions are expensive, complex to install, or provide limited insights</li>
+                            <li>Growing environmental concerns about energy consumption</li>
+                            <li>Difficulty identifying faulty or inefficient appliances</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Our Solution</h3>
+                        <ul class="feature-list">
+                            <li>Non-invasive, plug-and-play energy monitoring system</li>
+                            <li>AI-powered appliance recognition and usage patterns</li>
+                            <li>Real-time insights and recommendations via mobile app</li>
+                            <li>Affordable price point (₹4,500) accessible to middle-class households</li>
+                            <li>No electrician required for installation</li>
+                            <li>Anomaly detection for faulty appliances</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Non-Invasive Monitoring Section -->
+        <section class="section glow" id="noninvasive">
+            <div class="section-header">
+                <h2>Non-Invasive Monitoring</h2>
+            </div>
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <p>The Smart Home Energy Monitoring System uses non-invasive current sensors to track energy usage per circuit (or lane) in your home. There is no need to tamper with appliances or modify internal wiring. The system is mounted safely at the distribution board and reads signals from the outside using safe, contactless methods.</p>
+                        
+                        <ul class="feature-list" style="margin-top: 1.5rem;">
+                            <li>No appliance-level wiring</li>
+                            <li>No wall-breaking or rewiring</li>
+                            <li>Mounted at DB/MCB with AI-based circuit profiling</li>
+                            <li>Tamper-free and BIS-compliant design</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <div style="background-color: var(--card-bg); border-radius: 10px; padding: 20px; height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <svg width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Distribution Board -->
+                                <rect x="50" y="50" width="150" height="150" rx="5" fill="#333" stroke="#555" stroke-width="2"/>
+                                
+                                <!-- MCB Switches -->
+                                <rect x="70" y="70" width="20" height="30" rx="2" fill="#555"/>
+                                <rect x="100" y="70" width="20" height="30" rx="2" fill="#555"/>
+                                <rect x="130" y="70" width="20" height="30" rx="2" fill="#555"/>
+                                <rect x="160" y="70" width="20" height="30" rx="2" fill="#555"/>
+                                
+                                <rect x="70" y="110" width="20" height="30" rx="2" fill="#555"/>
+                                <rect x="100" y="110" width="20" height="30" rx="2" fill="#555"/>
+                                <rect x="130" y="110" width="20" height="30" rx="2" fill="#555"/>
+                                <rect x="160" y="110" width="20" height="30" rx="2" fill="#555"/>
+                                
+                                <rect x="70" y="150" width="20" height="30" rx="2" fill="#555"/>
+                                <rect x="100" y="150" width="20" height="30" rx="2" fill="#555"/>
+                                <rect x="130" y="150" width="20" height="30" rx="2" fill="#555"/>
+                                <rect x="160" y="150" width="20" height="30" rx="2" fill="#555"/>
+                                
+                                <!-- Sensor Device -->
+                                <rect x="30" y="100" width="40" height="60" rx="5" fill="#00E5FF" fill-opacity="0.8"/>
+                                
+                                <!-- Sensor Connections (non-invasive) -->
+                                <path d="M70 115 C 75 115, 75 85, 80 85" stroke="#00E5FF" stroke-width="2" stroke-dasharray="3 2"/>
+                                <path d="M70 125 C 75 125, 75 125, 80 125" stroke="#00E5FF" stroke-width="2" stroke-dasharray="3 2"/>
+                                <path d="M70 135 C 75 135, 75 165, 80 165" stroke="#00E5FF" stroke-width="2" stroke-dasharray="3 2"/>
+                                
+                                <!-- Wireless Signal -->
+                                <path d="M30 120 C 20 120, 10 100, 10 80" stroke="#00E5FF" stroke-width="2" stroke-dasharray="3 2"/>
+                                <circle cx="10" cy="80" r="5" fill="#00E5FF"/>
+                                <path d="M5 70 C 10 65, 15 70, 10 75" stroke="#00E5FF" stroke-width="1"/>
+                                <path d="M2 65 C 10 55, 18 65, 10 75" stroke="#00E5FF" stroke-width="1"/>
+                                
+                                <!-- Non-invasive text -->
+                                <text x="125" y="220" text-anchor="middle" fill="#E0E0E0" font-size="12" font-family="Poppins, sans-serif">Non-invasive Installation</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>Safe Installation</h3>
+                        <p>Our system attaches externally to your distribution board without requiring any cutting or splicing of electrical wires. This eliminates safety risks associated with traditional energy monitors.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Circuit-Level Monitoring</h3>
+                        <p>By monitoring at the circuit level, our system can track energy usage across your entire home without requiring individual smart plugs or appliance modifications.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>AI-Based Recognition</h3>
+                        <p>Our proprietary algorithms analyze electrical signatures to identify individual appliances and their usage patterns, providing detailed insights without invasive monitoring.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Regulatory Compliant</h3>
+                        <p>Fully compliant with BIS safety standards and designed specifically for Indian electrical systems and power conditions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Features Section -->
+        <section class="section glow" id="product-features">
+            <div class="section-header">
+                <h2>Product Features</h2>
+            </div>
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <div style="background-color: var(--card-bg); border-radius: 10px; padding: 20px; height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="40" y="60" width="120" height="80" rx="5" fill="#00E5FF" fill-opacity="0.8"/>
+                                <rect x="50" y="70" width="100" height="60" rx="3" fill="#1E1E1E"/>
+                                <circle cx="100" cy="100" r="20" fill="#FF9E1B"/>
+                                <path d="M90 100L97 107L110 94" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M30 130C30 130 45 140 100 140C155 140 170 130 170 130" stroke="#00E5FF" stroke-width="3"/>
+                                <path d="M45 150C45 150 60 160 100 160C140 160 155 150 155 150" stroke="#00E5FF" stroke-width="3"/>
+                                <path d="M60 170C60 170 75 180 100 180C125 180 140 170 140 170" stroke="#00E5FF" stroke-width="3"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="gradient-text">Key Features</h3>
+                        <ul class="feature-list">
+                            <li>Non-invasive installation - no electrician required</li>
+                            <li>Real-time appliance-level energy monitoring</li>
+                            <li>AI-powered insights and recommendations</li>
+                            <li>Mobile app with intuitive dashboard</li>
+                            <li>Automatic anomaly detection</li>
+                            <li>Energy-saving recommendations</li>
+                            <li>Historical usage analysis</li>
+                            <li>Monthly consumption forecasts</li>
+                            <li>Bill estimation and budgeting tools</li>
+                            <li>Customizable alerts and notifications</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>Hardware Specifications</h3>
+                        <ul class="feature-list">
+                            <li>Non-invasive current sensors</li>
+                            <li>WiFi and Bluetooth connectivity</li>
+                            <li>Local data processing capability</li>
+                            <li>Secure encrypted communication</li>
+                            <li>Compatible with all standard electrical panels</li>
+                            <li>Low power consumption</li>
+                            <li>Backup battery for continuous monitoring</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Software Capabilities</h3>
+                        <ul class="feature-list">
+                            <li>Proprietary appliance recognition algorithms</li>
+                            <li>Machine learning for pattern recognition</li>
+                            <li>Cloud-based analytics engine</li>
+                            <li>Intuitive mobile app (iOS & Android)</li>
+                            <li>Web dashboard for detailed analysis</li>
+                            <li>API for third-party integrations</li>
+                            <li>Regular OTA updates with new features</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Opportunity Section -->
+        <section class="section glow" id="market-opportunity">
+            <div class="section-header">
+                <h2>Market Opportunity</h2>
+            </div>
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <h3 class="gradient-text">Target Market</h3>
+                        <p>Our initial focus is on middle-class urban households with monthly electricity bills exceeding ₹2,000, representing approximately 75 million homes across major Indian cities.</p>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <span class="badge">Urban middle-class households</span>
+                            <span class="badge">Tech-savvy homeowners</span>
+                            <span class="badge">Environmentally conscious consumers</span>
+                            <span class="badge">New residential projects</span>
+                            <span class="badge">Small businesses</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="gradient-text">Market Size</h3>
+                        <p>The Indian smart energy monitoring market is projected to grow at a CAGR of 14.5% over the next five years.</p>
+                        
+                        <div class="card" style="margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span><strong>Total Addressable Market (TAM):</strong></span>
+                                <span>₹9,000+ Cr</span>
+                            </div>
+                            <p>All 200M+ urban and semi-urban households in India</p>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; margin-top: 1rem;">
+                                <span><strong>Serviceable Available Market (SAM):</strong></span>
+                                <span>₹3,375 Cr</span>
+                            </div>
+                            <p>75M middle-class households with monthly bills >₹2,000</p>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 37.5%"></div>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; margin-top: 1rem;">
+                                <span><strong>Serviceable Obtainable Market (SOM):</strong></span>
+                                <span>₹1,200+ Cr</span>
+                            </div>
+                            <p>Target 1% penetration in first 3 years (~750,000 households)</p>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 13.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="mb-2">
+                    <h3 class="gradient-text text-center">Market Drivers</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <h3>Rising Energy Costs</h3>
+                            <p>Electricity tariffs in urban India have increased by an average of 8% annually over the past five years, driving demand for energy management solutions.</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Government Initiatives</h3>
+                            <p>The Smart Cities Mission and energy efficiency programs are creating favorable regulatory conditions for smart energy management technologies.</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Environmental Awareness</h3>
+                            <p>Growing consciousness about carbon footprints is driving adoption of energy-efficient solutions among urban consumers.</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Smart Home Growth</h3>
+                            <p>The Indian smart home market is growing at 30% CAGR, creating an ecosystem where our solution can thrive.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competitive Analysis Section -->
+        <section class="section glow" id="competitive-analysis">
+            <div class="section-header">
+                <h2>Competitive Analysis</h2>
+            </div>
+            <div class="container">
+                <div class="tab-container">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="domestic">Domestic Competitors</div>
+                        <div class="tab" data-tab="global">Global Competitors</div>
+                    </div>
+                    
+                    <div class="tab-content active" id="domestic-tab">
+                        <div class="overflow-x-auto">
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Qubo Smart Plug</th>
+                                        <th>Ohm Assistant</th>
+                                        <th>MyWatts</th>
+                                        <th>Imported Solutions</th>
+                                        <th>Our Solution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Appliance-Level Intelligence</td>
+                                        <td>Single appliance only</td>
+                                        <td>After 7-45 days</td>
+                                        <td>Varies, unclear</td>
+                                        <td>Yes, but DIY setup</td>
+                                        <td class="highlight">ML-powered after data collection</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Whole-Home Monitoring</td>
+                                        <td class="x">✗</td>
+                                        <td class="check">✓</td>
+                                        <td class="check">✓</td>
+                                        <td class="check">✓</td>
+                                        <td class="check highlight">✓</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ease of Installation</td>
+                                        <td>Plug & use</td>
+                                        <td>Electrician required</td>
+                                        <td>Moderate</td>
+                                        <td>DIY, complex</td>
+                                        <td class="highlight">No electrician needed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data Accuracy</td>
+                                        <td>~80%</td>
+                                        <td>Mixed reviews</td>
+                                        <td>Not benchmarked</td>
+                                        <td>High, requires calibration</td>
+                                        <td class="highlight">>95%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Certification</td>
+                                        <td class="check">✓</td>
+                                        <td class="check">✓</td>
+                                        <td>Unclear</td>
+                                        <td class="x">✗</td>
+                                        <td class="check highlight">✓</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Local Support</td>
+                                        <td class="check">✓</td>
+                                        <td class="check">✓</td>
+                                        <td>Limited</td>
+                                        <td class="x">✗</td>
+                                        <td class="check highlight">✓</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price (INR)</td>
+                                        <td>₹750-₹2,100</td>
+                                        <td>~₹7,500</td>
+                                        <td>₹3,000-₹8,000</td>
+                                        <td>₹2,000-₹5,000/module</td>
+                                        <td class="highlight">₹4,500 (whole-home)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="global-tab">
+                        <div class="overflow-x-auto">
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Sense</th>
+                                        <th>Emporia Vue</th>
+                                        <th>Neurio</th>
+                                        <th>Smappee</th>
+                                        <th>Our Solution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Plug & Play</td>
+                                        <td class="x">✗</td>
+                                        <td>Semi</td>
+                                        <td class="x">✗</td>
+                                        <td class="x">✗</td>
+                                        <td class="check highlight">✓</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appliance-Level Insights</td>
+                                        <td class="check">✓</td>
+                                        <td>Extra kit needed</td>
+                                        <td>Limited</td>
+                                        <td class="check">✓</td>
+                                        <td class="check highlight">✓</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Local Certification</td>
+                                        <td class="x">✗</td>
+                                        <td class="x">✗</td>
+                                        <td class="x">✗</td>
+                                        <td class="x">✗</td>
+                                        <td class="check highlight">✓</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Consumer Dashboard</td>
+                                        <td>Basic</td>
+                                        <td>Basic</td>
+                                        <td>Basic</td>
+                                        <td>Advanced</td>
+                                        <td class="highlight">AI + Mobile App</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Local Support</td>
+                                        <td class="x">✗</td>
+                                        <td class="x">✗</td>
+                                        <td class="x">✗</td>
+                                        <td class="x">✗</td>
+                                        <td class="check highlight">✓</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price (INR)</td>
+                                        <td>₹21k-₹30k</td>
+                                        <td>₹21k-₹30k</td>
+                                        <td>₹18k-₹25k</td>
+                                        <td>₹25k-₹35k</td>
+                                        <td class="highlight">₹4.5k</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div>
+                    <h3 class="gradient-text text-center">Our Competitive Advantages</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <h3>Accurate Recognition</h3>
+                            <p>Our proprietary algorithms identify appliances with high accuracy after collecting usage data, providing detailed insights into energy consumption patterns.</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Price Advantage</h3>
+                            <p>At ₹4,500, we offer whole-home monitoring at a fraction of the cost of global competitors (5-6x cheaper) and with more features than local alternatives.</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Easy Installation</h3>
+                            <p>True plug-and-play design requires no electrician, no rewiring, and can be installed in under 5 minutes by any homeowner.</p>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Local Optimization</h3>
+                            <p>Designed specifically for Indian electrical systems, power conditions, and common household appliances.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Model Section -->
+        <section class="section glow" id="business-model">
+            <div class="section-header">
+                <h2>Business Model</h2>
+            </div>
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <h3 class="gradient-text">Revenue Streams</h3>
+                        <ul class="feature-list">
+                            <li>Hardware sales (primary): ₹4,500 per unit</li>
+                            <li>Premium subscription: ₹99/month for advanced features</li>
+                            <li>B2B partnerships with utilities and appliance manufacturers</li>
+                            <li>Data insights (anonymized, opt-in only)</li>
+                        </ul>
+                        
+                        <h3 class="gradient-text" style="margin-top: 2rem;">Unit Economics</h3>
+                        <div class="card" style="margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>BOM Cost:</span>
+                                <span>₹1,200</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Manufacturing & Certification:</span>
+                                <span>₹500</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Logistics & Support:</span>
+                                <span>₹300</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                <span><strong>Total Cost:</strong></span>
+                                <span><strong>₹2,000</strong></span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span><strong>Retail Price:</strong></span>
+                                <span><strong>₹4,500</strong></span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                                <span><strong>Gross Margin:</strong></span>
+                                <span class="gradient-text"><strong>55%</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="gradient-text">Go-to-Market Strategy</h3>
+                        <div class="card" style="margin-bottom: 1rem;">
+                            <h3>Phase 1: Market Entry</h3>
+                            <ul class="feature-list">
+                                <li>Direct-to-consumer through e-commerce</li>
+                                <li>Partnerships with premium electronics retailers</li>
+                                <li>Targeted digital marketing campaigns</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card" style="margin-bottom: 1rem;">
+                            <h3>Phase 2: Expansion</h3>
+                            <ul class="feature-list">
+                                <li>B2B channels through real estate developers</li>
+                                <li>Utility partnerships for subsidized distribution</li>
+                                <li>Expansion to Tier-2 cities</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Phase 3: Scale</h3>
+                            <ul class="feature-list">
+                                <li>International expansion to similar markets</li>
+                                <li>Value-added services and ecosystem integration</li>
+                                <li>Enterprise solutions for commercial buildings</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Projections Section -->
+        <section class="section glow" id="financial-projections">
+            <div class="section-header">
+                <h2>Financial Projections</h2>
+            </div>
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <h3 class="gradient-text">5-Year Forecast</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Year 1</th>
+                                    <th>Year 2</th>
+                                    <th>Year 3</th>
+                                    <th>Year 4</th>
+                                    <th>Year 5</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Units Sold (thousands)</td>
+                                    <td>50</td>
+                                    <td>100</td>
+                                    <td>200</td>
+                                    <td>350</td>
+                                    <td>500</td>
+                                </tr>
+                                <tr>
+                                    <td>Revenue (₹ Cr)</td>
+                                    <td>22.5</td>
+                                    <td>45.0</td>
+                                    <td>90.0</td>
+                                    <td>157.5</td>
+                                    <td>225.0</td>
+                                </tr>
+                                <tr>
+                                    <td>Gross Profit (₹ Cr)</td>
+                                    <td>12.5</td>
+                                    <td>25.0</td>
+                                    <td>50.0</td>
+                                    <td>87.5</td>
+                                    <td>125.0</td>
+                                </tr>
+                                <tr>
+                                    <td>Operating Expenses (₹ Cr)</td>
+                                    <td>15.0</td>
+                                    <td>20.0</td>
+                                    <td>30.0</td>
+                                    <td>45.0</td>
+                                    <td>60.0</td>
+                                </tr>
+                                <tr>
+                                    <td>EBITDA (₹ Cr)</td>
+                                    <td>-2.5</td>
+                                    <td>5.0</td>
+                                    <td>20.0</td>
+                                    <td>42.5</td>
+                                    <td>65.0</td>
+                                </tr>
+                                <tr>
+                                    <td>EBITDA Margin</td>
+                                    <td>-11.1%</td>
+                                    <td>11.1%</td>
+                                    <td>22.2%</td>
+                                    <td>27.0%</td>
+                                    <td>28.9%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div>
+                        <h3 class="gradient-text">Funding Requirements</h3>
+                        <div class="card" style="margin-bottom: 1rem;">
+                            <h3>Seed Round: ₹5 Cr</h3>
+                            <ul class="feature-list">
+                                <li>Product finalization and certification</li>
+                                <li>Initial production run</li>
+                                <li>Team expansion (engineering and sales)</li>
+                                <li>Market entry activities</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Series A: ₹25 Cr</h3>
+                            <ul class="feature-list">
+                                <li>Scale manufacturing and operations</li>
+                                <li>Expand distribution channels</li>
+                                <li>Marketing and brand building</li>
+                                <li>R&D for next-generation products</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- R&D and Manufacturing Setup Section -->
+        <section class="section glow" id="rd-manufacturing">
+            <div class="section-header">
+                <h2>R&D and Initial Manufacturing Setup</h2>
+            </div>
+            <div class="container">
+                <div class="grid">
+                    <div class="card">
+                        <h3 class="gradient-text">R&D Investment</h3>
+                        <ul class="feature-list">
+                            <li>Algorithm development and optimization: ₹1.2 Cr</li>
+                            <li>Hardware prototyping and testing: ₹0.8 Cr</li>
+                            <li>Mobile app and cloud infrastructure: ₹0.6 Cr</li>
+                            <li>Testing and certification: ₹0.4 Cr</li>
+                            <li>Patent applications: ₹0.3 Cr</li>
+                        </ul>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <h3>Key R&D Milestones</h3>
+                            <ul class="feature-list">
+                                <li>Finalize ML algorithm for appliance recognition</li>
+                                <li>Optimize sensor design for Indian electrical systems</li>
+                                <li>Complete mobile app development with user testing</li>
+                                <li>Achieve >95% accuracy in appliance detection</li>
+                                <li>Secure core technology patents</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="gradient-text">Manufacturing Setup</h3>
+                        <ul class="feature-list">
+                            <li>Initial production facility setup: ₹0.7 Cr</li>
+                            <li>Manufacturing equipment: ₹0.9 Cr</li>
+                            <li>Quality control systems: ₹0.3 Cr</li>
+                            <li>Supply chain establishment: ₹0.2 Cr</li>
+                            <li>Inventory for first production run: ₹0.6 Cr</li>
+                        </ul>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <h3>Manufacturing Strategy</h3>
+                            <ul class="feature-list">
+                                <li>Partner with established electronics manufacturer in India</li>
+                                <li>Semi-automated assembly line for quality control</li>
+                                <li>Initial capacity of 5,000 units/month, scalable to 20,000</li>
+                                <li>Local sourcing of 70% components to reduce costs</li>
+                                <li>Rigorous quality testing for each unit</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>Technology Development Roadmap</h3>
+                        <ul class="feature-list">
+                            <li><strong>Core Algorithm Development:</strong> Proprietary machine learning models for appliance signature recognition</li>
+                            <li><strong>Hardware Optimization:</strong> Non-invasive sensors with high accuracy and reliability</li>
+                            <li><strong>Data Processing Pipeline:</strong> Edge computing + cloud architecture for real-time insights</li>
+                            <li><strong>Mobile Application:</strong> User-friendly interface with actionable recommendations</li>
+                            <li><strong>Security Framework:</strong> End-to-end encryption and data protection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Manufacturing Excellence</h3>
+                        <ul class="feature-list">
+                            <li><strong>Quality Assurance:</strong> 100% testing of all units before shipping</li>
+                            <li><strong>Supply Chain Resilience:</strong> Multiple suppliers for critical components</li>
+                            <li><strong>Scalable Production:</strong> Modular manufacturing process for rapid scaling</li>
+                            <li><strong>Certification Compliance:</strong> BIS, CE, and other relevant safety standards</li>
+                            <li><strong>Environmental Considerations:</strong> Sustainable packaging and manufacturing practices</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div>
+                    <h3 class="gradient-text text-center">R&D and Manufacturing Budget Allocation</h3>
+                    <div class="grid">
+                        <div>
+                            <div style="background-color: var(--card-bg); border-radius: 10px; padding: 20px; height: 300px; display: flex; align-items: center; justify-content: center;">
+                                <svg width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- R&D Pie Chart -->
+                                    <circle cx="125" cy="125" r="100" fill="#1E1E1E" stroke="#333" stroke-width="1"/>
+                                    <!-- Algorithm Development: 36% -->
+                                    <path d="M125 25 L125 125 L221 79 A100 100 0 0 0 125 25" fill="#00E5FF"/>
+                                    <!-- Hardware Prototyping: 24% -->
+                                    <path d="M125 125 L221 79 L221 171 A100 100 0 0 0 221 79" fill="#FF9E1B"/>
+                                    <!-- Mobile App & Cloud: 18% -->
+                                    <path d="M125 125 L221 171 L171 221 A100 100 0 0 0 221 171" fill="#FF5252"/>
+                                    <!-- Testing & Certification: 12% -->
+                                    <path d="M125 125 L171 221 L79 221 A100 100 0 0 0 171 221" fill="#00E676"/>
+                                    <!-- Patent Applications: 10% -->
+                                    <path d="M125 125 L79 221 L25 125 A100 100 0 0 0 79 221" fill="#40C4FF"/>
+                                    
+                                    <!-- Center circle -->
+                                    <circle cx="125" cy="125" r="40" fill="#1E1E1E" stroke="#333" stroke-width="1"/>
+                                    <text x="125" y="125" text-anchor="middle" dominant-baseline="middle" fill="#E0E0E0" font-size="12" font-family="Poppins, sans-serif">Budget Allocation</text>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="card" style="height: 100%;">
+                                <h3>R&D Budget Breakdown</h3>
+                                <div style="margin-bottom: 0.75rem;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 0.25rem;">
+                                        <div style="width: 12px; height: 12px; background-color: #00E5FF; margin-right: 8px; border-radius: 2px;"></div>
+                                        <span>Algorithm Development</span>
+                                        <span style="margin-left: auto;">36%</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" style="width: 36%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-bottom: 0.75rem;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 0.25rem;">
+                                        <div style="width: 12px; height: 12px; background-color: #FF9E1B; margin-right: 8px; border-radius: 2px;"></div>
+                                        <span>Hardware Prototyping</span>
+                                        <span style="margin-left: auto;">24%</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" style="width: 24%; background: linear-gradient(90deg, #FF9E1B, #FFC107);"></div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-bottom: 0.75rem;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 0.25rem;">
+                                        <div style="width: 12px; height: 12px; background-color: #FF5252; margin-right: 8px; border-radius: 2px;"></div>
+                                        <span>Mobile App & Cloud</span>
+                                        <span style="margin-left: auto;">18%</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" style="width: 18%; background: linear-gradient(90deg, #FF5252, #FF1744);"></div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-bottom: 0.75rem;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 0.25rem;">
+                                        <div style="width: 12px; height: 12px; background-color: #00E676; margin-right: 8px; border-radius: 2px;"></div>
+                                        <span>Testing & Certification</span>
+                                        <span style="margin-left: auto;">12%</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" style="width: 12%; background: linear-gradient(90deg, #00E676, #00C853);"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div style="display: flex; align-items: center; margin-bottom: 0.25rem;">
+                                        <div style="width: 12px; height: 12px; background-color: #40C4FF; margin-right: 8px; border-radius: 2px;"></div>
+                                        <span>Patent Applications</span>
+                                        <span style="margin-left: auto;">10%</span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" style="width: 10%; background: linear-gradient(90deg, #40C4FF, #00B0FF);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risk Analysis Section -->
+        <section class="section glow" id="risk-analysis">
+            <div class="section-header">
+                <h2>Risk Analysis & Mitigation</h2>
+            </div>
+            <div class="container">
+                <div class="grid">
+                    <div class="card">
+                        <h3>Manufacturing Challenges</h3>
+                        <p><strong>Risk:</strong> Supply chain disruptions affecting component availability</p>
+                        <p><strong>Mitigation:</strong> Multiple supplier relationships, 3-month inventory buffer for critical components</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Market Adoption</h3>
+                        <p><strong>Risk:</strong> Slower than projected consumer adoption</p>
+                        <p><strong>Mitigation:</strong> Flexible go-to-market strategy with B2B channel as backup, utility partnerships</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Regulatory Changes</h3>
+                        <p><strong>Risk:</strong> New certification requirements or standards</p>
+                        <p><strong>Mitigation:</strong> Proactive engagement with regulatory bodies, modular design for quick adaptation</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Competitive Pressure</h3>
+                        <p><strong>Risk:</strong> New entrants or price competition</p>
+                        <p><strong>Mitigation:</strong> Patent-pending technology, focus on software differentiation, rapid innovation cycle</p>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>Technical Risks</h3>
+                        <p><strong>Risk:</strong> Accuracy challenges with certain appliance types</p>
+                        <p><strong>Mitigation:</strong> Continuous algorithm improvement, extensive testing with diverse appliance profiles</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Funding Risks</h3>
+                        <p><strong>Risk:</strong> Delays in securing Series A funding</p>
+                        <p><strong>Mitigation:</strong> Conservative cash management, alternative revenue streams, milestone-based scaling</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Team Risks</h3>
+                        <p><strong>Risk:</strong> Challenges in recruiting specialized talent</p>
+                        <p><strong>Mitigation:</strong> Competitive compensation, equity incentives, university partnerships</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Market Risks</h3>
+                        <p><strong>Risk:</strong> Economic downturn affecting consumer spending</p>
+                        <p><strong>Mitigation:</strong> Value proposition focused on cost savings, flexible pricing models, B2B focus</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment Opportunity Section -->
+        <section class="section glow" id="investment-opportunity">
+            <div class="section-header">
+                <h2>Investment Opportunity</h2>
+            </div>
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <h3 class="gradient-text">Why Invest Now</h3>
+                        <ul class="feature-list">
+                            <li>Proven technology with working prototype and initial customer validation</li>
+                            <li>Massive market opportunity with limited competition in the price segment</li>
+                            <li>Strong unit economics with 55% gross margins</li>
+                            <li>Experienced team with domain expertise and industry connections</li>
+                            <li>Clear path to profitability within 24 months</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="gradient-text">Seed Round Details</h3>
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Amount Raising:</span>
+                                <span>₹5 Crores</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Pre-Money Valuation:</span>
+                                <span>₹25 Crores</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Equity Offered:</span>
+                                <span>16.67%</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Minimum Investment:</span>
+                                <span>₹50 Lakhs</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card" style="margin-top: 2rem;">
+                            <h3>Return Potential</h3>
+                            <p>Based on our 5-year projections and comparable industry valuations:</p>
+                            <ul class="feature-list">
+                                <li>Year 5 Revenue: ₹225 Crores</li>
+                                <li>Target Valuation Multiple: 2x revenue</li>
+                                <li>Projected Company Valuation: ₹450 Crores</li>
+                                <li>Potential Return: 15x on seed investment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© Smart Energy Monitoring Technologies Pvt. Ltd. All Rights Reserved.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Confidential - For Investor Review Only</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(tabId + '-tab').classList.add('active');
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add subtle animation to cards on scroll
+            const cards = document.querySelectorAll('.card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'961a51cef1e549d5',t:'MTc1MjkyOTE2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
