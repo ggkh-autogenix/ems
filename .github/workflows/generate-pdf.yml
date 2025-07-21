@@ -2,50 +2,56 @@ name: Generate PDF from HTML
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'ems_pitch_deck.html'
+      - '.github/workflows/generate-pdf.yml'
   workflow_dispatch:
 
 jobs:
-  generate:
+  render:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout repo
-        uses: actions/checkout@v3
+    - name: 🧾 Checkout Repository
+      uses: actions/checkout@v3
 
-      - name: 📦 Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+    - name: 🟨 Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
 
-      - name: 📦 Install Puppeteer
-        run: |
-          npm init -y
-          npm install puppeteer
+    - name: 📦 Install Puppeteer
+      run: |
+        npm init -y
+        npm install puppeteer
 
-      - name: 🖨️ Render PDF
-        run: |
-          mkdir -p scripts
-          echo "const puppeteer = require('puppeteer');
-          const path = require('path');
+    - name: 🖨️ Render PDF with Puppeteer
+      run: |
+        echo "const puppeteer = require('puppeteer');
+        const path = require('path');
+        const fs = require('fs');
 
-          (async () => {
-            const browser = await puppeteer.launch();
-            const page = await browser.newPage();
-            const filePath = path.resolve(__dirname, '../ems_pitch_deck.html');
-            await page.goto('file://' + filePath, { waitUntil: 'networkidle0' });
-            await page.pdf({
-              path: 'ems_pitch_deck.pdf',
-              format: 'A4',
-              printBackground: true,
-            });
-            await browser.close();
-          })();" > scripts/render-pdf.js
+        (async () => {
+          const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+          });
+          const page = await browser.newPage();
+          const filePath = path.resolve('ems_pitch_deck.html');
+          const fileUrl = 'file://' + filePath;
+          await page.goto(fileUrl, { waitUntil: 'networkidle0' });
+          await page.pdf({
+            path: 'ems_pitch_deck.pdf',
+            format: 'A4',
+            printBackground: true,
+          });
+          await browser.close();
+        })();" > render-pdf.js
 
-          node scripts/render-pdf.js
+        node render-pdf.js
 
-      - name: 📤 Upload PDF
-        uses: actions/upload-artifact@v4
-        with:
-          name: ems-pitch-deck
-          path: ems_pitch_deck.pdf
+    - name: ⬆️ Upload PDF Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ems_pitch_deck
+        path: ems_pitch_deck.pdf
