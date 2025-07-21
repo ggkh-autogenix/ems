@@ -25,13 +25,58 @@ jobs:
         npm init -y
         npm install puppeteer
 
-    - name: 🖨️ Render PDF with Puppeteer
+    - name: ➕ Write Puppeteer Render Script
       run: |
-        npm init -y
-        npm install puppeteer
-    - name: ➕ Add PDF Render Script
-      run: |
-        echo "${{ secrets.RENDER_PDF_SCRIPT }}" > render-pdf.js
+        cat << 'EOF' > render-pdf.js
+        const puppeteer = require('puppeteer');
+        const path = require('path');
+        const fs = require('fs');
+
+        (async () => {
+          const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            defaultViewport: {
+              width: 1280,
+              height: 1920,
+            },
+          });
+
+          const page = await browser.newPage();
+          const htmlPath = path.resolve(__dirname, 'ems_pitch_deck.html');
+          const htmlContent = fs.readFileSync(htmlPath, 'utf8');
+
+          await page.setContent(htmlContent, {
+            waitUntil: ['networkidle0', 'domcontentloaded'],
+          });
+
+          // Optional global style for fallback fonts and spacing
+          await page.addStyleTag({
+            content: \`
+              * { box-sizing: border-box; }
+              body {
+                font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+                padding: 20px;
+                line-height: 1.6;
+              }
+            \`
+          });
+
+          await page.evaluateHandle('document.fonts.ready');
+
+          await page.pdf({
+            path: 'ems_pitch_deck.pdf',
+            format: 'A4',
+            margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' },
+            printBackground: true,
+          });
+
+          await browser.close();
+        })();
+        EOF
+
+    - name: 🖨️ Render PDF
+      run: node render-pdf.js
 
     - name: ⬆️ Upload PDF Artifact (v4)
       uses: actions/upload-artifact@v4
