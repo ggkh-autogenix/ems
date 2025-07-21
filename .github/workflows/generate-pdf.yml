@@ -1,4 +1,4 @@
-name: Generate Full PDF with Tabs Unhidden
+name: Generate Full PDFs with Tabs Unhidden
 
 on:
   push:
