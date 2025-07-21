@@ -1,4 +1,4 @@
-name: Generate PDF from HTML
+name: Generate Full PDF with Tabs Unhidden
 
 on:
   push:
@@ -12,20 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🧾 Checkout Repository
+    - name: Checkout Repo
       uses: actions/checkout@v3
 
-    - name: 🟨 Setup Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 20
 
-    - name: 📦 Install Puppeteer
+    - name: Install Puppeteer
       run: |
         npm init -y
         npm install puppeteer
 
-    - name: ➕ Write Puppeteer Render Script
+    - name: Create Puppeteer Render Script
       run: |
         cat << 'EOF' > render-pdf.js
         const puppeteer = require('puppeteer');
@@ -35,27 +35,81 @@ jobs:
         (async () => {
           const browser = await puppeteer.launch({
             headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            defaultViewport: {
-              width: 1280,
-              height: 1920,
-            },
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
           });
 
           const page = await browser.newPage();
           const htmlPath = path.resolve(__dirname, 'ems_pitch_deck.html');
           const htmlContent = fs.readFileSync(htmlPath, 'utf8');
 
-          await page.setContent(htmlContent, {
-            waitUntil: ['networkidle0', 'domcontentloaded'],
+          await page.setContent(htmlContent, { waitUntil: ['networkidle0', 'domcontentloaded'] });
+
+          // Simulate scrolling
+          await page.evaluate(async () => {
+            await new Promise(resolve => {
+              let totalHeight = 0;
+              const distance = 100;
+              const timer = setInterval(() => {
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+                if (totalHeight >= document.body.scrollHeight) {
+                  clearInterval(timer);
+                  resolve();
+                }
+              }, 150);
+            });
           });
 
-          // Optional global style for fallback fonts and spacing
+          // Unhide all tabs and hidden content
+          await page.evaluate(() => {
+            // Reveal anything with display: none
+            document.querySelectorAll('*').forEach(el => {
+              if (window.getComputedStyle(el).display === 'none') {
+                el.style.display = 'block';
+              }
+              // Expand all accordions or tabs
+              if (el.hasAttribute('hidden')) {
+                el.hidden = false;
+              }
+              if (el.classList.contains('tab-content')) {
+                el.style.display = 'block';
+              }
+              if (el.style.visibility === 'hidden') {
+                el.style.visibility = 'visible';
+              }
+            });
+          });
+
+          // Add print-friendly CSS
           await page.addStyleTag({
-            content: '* { box-sizing: border-box; } body { font-family: "Segoe UI", Roboto, Arial, sans-serif; padding: 20px; line-height: 1.6; }'
+            content: `
+              * { box-sizing: border-box; }
+              body {
+                font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+                margin: 0; padding: 20px;
+              }
+              h1, h2, h3, h4 {
+                page-break-after: avoid;
+                page-break-inside: avoid;
+              }
+              p, table, div {
+                page-break-inside: avoid;
+              }
+              .pagebreak { page-break-before: always; }
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              table td, table th {
+                border: 1px solid #999;
+                padding: 8px;
+              }
+            `
           });
 
           await page.evaluateHandle('document.fonts.ready');
+
+          await page.waitForTimeout(1000);
 
           await page.pdf({
             path: 'ems_pitch_deck.pdf',
@@ -68,10 +122,10 @@ jobs:
         })();
         EOF
 
-    - name: 🖨️ Render PDF
+    - name: Run PDF Renderer
       run: node render-pdf.js
 
-    - name: ⬆️ Upload PDF Artifact
+    - name: Upload PDF Artifact
       uses: actions/upload-artifact@v4
       with:
         name: ems_pitch_deck
