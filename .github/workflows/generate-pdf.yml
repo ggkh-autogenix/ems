@@ -5,6 +5,7 @@ on:
     paths:
       - 'ems_pitch_deck.html'
       - '.github/workflows/generate-pdf.yml'
+      - 'render-pdf.js'
   workflow_dispatch:
 
 jobs:
