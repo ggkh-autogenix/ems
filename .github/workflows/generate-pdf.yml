@@ -52,14 +52,7 @@ jobs:
 
           // Optional global style for fallback fonts and spacing
           await page.addStyleTag({
-            content: \`
-              * { box-sizing: border-box; }
-              body {
-                font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-                padding: 20px;
-                line-height: 1.6;
-              }
-            \`
+            content: '* { box-sizing: border-box; } body { font-family: "Segoe UI", Roboto, Arial, sans-serif; padding: 20px; line-height: 1.6; }'
           });
 
           await page.evaluateHandle('document.fonts.ready');
@@ -78,7 +71,7 @@ jobs:
     - name: 🖨️ Render PDF
       run: node render-pdf.js
 
-    - name: ⬆️ Upload PDF Artifact (v4)
+    - name: ⬆️ Upload PDF Artifact
       uses: actions/upload-artifact@v4
       with:
         name: ems_pitch_deck
