@@ -14,7 +14,7 @@ const fs = require('fs');
 
   await page.setContent(htmlContent, { waitUntil: ['networkidle0', 'domcontentloaded'] });
 
-  // Scroll to the bottom to trigger all lazy-loaded content
+  // Scroll to bottom to trigger lazy-loaded elements
   await page.evaluate(async () => {
     await new Promise((resolve) => {
       let totalHeight = 0;
@@ -30,10 +30,10 @@ const fs = require('fs');
     });
   });
 
-  // Wait a little longer to let any animations/tabs complete
+  // Wait extra time to load fonts, animations, and dynamic content
   await new Promise(resolve => setTimeout(resolve, 1000));
 
-  // Print-friendly styling
+  // Add custom print-safe styles
   await page.addStyleTag({
     content: `
       * { box-sizing: border-box; }
@@ -64,10 +64,10 @@ const fs = require('fs');
     `
   });
 
-  // Wait for web fonts if any
+  // Wait for web fonts to finish loading
   await page.evaluateHandle('document.fonts.ready');
 
-  // Save the PDF
+  // Generate PDF
   await page.pdf({
     path: 'ems_pitch_deck.pdf',
     format: 'A4',
