@@ -45,7 +45,7 @@ jobs:
 
           await page.setContent(htmlContent, { waitUntil: ['networkidle0', 'domcontentloaded'] });
 
-          // Simulate scrolling
+          // Scroll to trigger lazy loading
           await page.evaluate(async () => {
             await new Promise(resolve => {
               let totalHeight = 0;
@@ -61,14 +61,12 @@ jobs:
             });
           });
 
-          // Unhide all tabs and hidden content
+          // Reveal hidden tabs/accordions/etc.
           await page.evaluate(() => {
-            // Reveal anything with display: none
             document.querySelectorAll('*').forEach(el => {
               if (window.getComputedStyle(el).display === 'none') {
                 el.style.display = 'block';
               }
-              // Expand all accordions or tabs
               if (el.hasAttribute('hidden')) {
                 el.hidden = false;
               }
@@ -81,7 +79,7 @@ jobs:
             });
           });
 
-          // Add print-friendly CSS
+          // Print-friendly CSS
           await page.addStyleTag({
             content: `
               * { box-sizing: border-box; }
@@ -109,8 +107,7 @@ jobs:
           });
 
           await page.evaluateHandle('document.fonts.ready');
-
-          await page.waitForTimeout(1000);
+          await new Promise(resolve => setTimeout(resolve, 1000));
 
           await page.pdf({
             path: 'ems_pitch_deck.pdf',
