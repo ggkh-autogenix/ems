@@ -27,27 +27,11 @@ jobs:
 
     - name: 🖨️ Render PDF with Puppeteer
       run: |
-        echo "const puppeteer = require('puppeteer');
-        const path = require('path');
-
-        (async () => {
-          const browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
-          });
-          const page = await browser.newPage();
-          const filePath = path.resolve('ems_pitch_deck.html');
-          const fileUrl = 'file://' + filePath;
-          await page.goto(fileUrl, { waitUntil: 'networkidle0' });
-          await page.pdf({
-            path: 'ems_pitch_deck.pdf',
-            format: 'A4',
-            printBackground: true,
-          });
-          await browser.close();
-        })();" > render-pdf.js
-
-        node render-pdf.js
+        npm init -y
+        npm install puppeteer
+    - name: ➕ Add PDF Render Script
+      run: |
+        echo "${{ secrets.RENDER_PDF_SCRIPT }}" > render-pdf.js
 
     - name: ⬆️ Upload PDF Artifact (v4)
       uses: actions/upload-artifact@v4
